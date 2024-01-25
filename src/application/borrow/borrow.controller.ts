@@ -9,7 +9,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
 
 import { BorrowService } from './borrow.service';
 import { CreateBorrowDto } from './dtos/create-borrow';
@@ -61,7 +61,6 @@ export class BorrowController {
     status: 404,
     description: 'Data borrow a book not found'.toUpperCase(),
   })
-  @ApiBody({ type: ParamBorrowDto })
   async delete(@Param() { id }: ParamBorrowDto) {
     const deleted = await this.borrowService.deleteBorrow(id);
 
