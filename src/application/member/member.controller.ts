@@ -12,7 +12,7 @@ import {
 import { Response } from 'express';
 
 import { MemberService } from './member.service';
-import { QueryMemberDto, QueryMemberIdDto } from './dtos/query-member.dto';
+import { ParamMemberIdDto } from './dtos/param-member.dto';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
 
@@ -43,7 +43,7 @@ export class MemberController {
 
   @Get(':memberId')
   async findOneData(
-    @Param() { memberId }: QueryMemberIdDto,
+    @Param() { memberId }: ParamMemberIdDto,
     @Res() res: Response,
   ) {
     const data = await this.memberService.findOneData(memberId);
@@ -56,7 +56,7 @@ export class MemberController {
 
   @Put(':memberId')
   async update(
-    @Param() { memberId }: QueryMemberIdDto,
+    @Param() { memberId }: ParamMemberIdDto,
     @Body() data: UpdateMemberDto,
     @Res() res: Response,
   ) {
@@ -74,7 +74,7 @@ export class MemberController {
   }
 
   @Delete(':memberId')
-  async remove(@Param() { memberId }: QueryMemberIdDto, @Res() res: Response) {
+  async remove(@Param() { memberId }: ParamMemberIdDto, @Res() res: Response) {
     await this.memberService.deleteData(memberId);
 
     return res.status(200).json({

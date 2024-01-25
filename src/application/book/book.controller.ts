@@ -6,14 +6,13 @@ import {
   Delete,
   Put,
   Res,
-  Query,
   Param,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiResponse, ApiBody } from '@nestjs/swagger';
 
 import { CreateBookDto } from './dtos/create-book.dto';
 import { BookService } from './book.service';
-import { QueryBookDto } from './dtos/query-book.dto';
 import { ParamsBookDto } from './dtos/params-book.dto';
 import { UpdateBookDto } from './dtos/update-book.dto';
 
@@ -22,6 +21,8 @@ export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post()
+  @ApiResponse({ status: 201, description: 'Book created'.toUpperCase() })
+  @ApiBody({ type: CreateBookDto })
   async create(@Body() createBookDto: CreateBookDto, @Res() res: Response) {
     const created = await this.bookService.create(createBookDto);
 
@@ -52,6 +53,8 @@ export class BookController {
   }
 
   @Put(':code')
+  @ApiResponse({ status: 200, description: 'Book updated'.toUpperCase() })
+  @ApiBody({ type: UpdateBookDto })
   async update(
     @Param() { code }: ParamsBookDto,
     @Body() createBookDto: UpdateBookDto,
@@ -66,6 +69,7 @@ export class BookController {
   }
 
   @Delete(':code')
+  @ApiResponse({ status: 200, description: 'Book deleted'.toUpperCase() })
   async delete(@Param() { code }: ParamsBookDto, @Res() res: Response) {
     const deleted = await this.bookService.delete(code);
 

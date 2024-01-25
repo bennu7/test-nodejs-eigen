@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ParamsBookDto {
+export class ParamMemberIdDto {
   @ApiProperty()
   @IsString()
-  code: string;
+  memberId: string;
 }
