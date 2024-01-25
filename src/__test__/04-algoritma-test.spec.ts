@@ -1,4 +1,4 @@
-import { calculateMatrix } from '../04';
+import { calculateMatrix } from '../../algoritma-test/04';
 
 describe('04', () => {
   it('should return calculate matrix', () => {

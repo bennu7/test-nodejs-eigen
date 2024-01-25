@@ -13,4 +13,5 @@ export const getTypeOrmConfig = (
   entities: [__dirname + '/../../domain/**/*.entity{.ts,.js}'],
   synchronize: true,
   autoLoadEntities: true,
+  logging: true,
 });

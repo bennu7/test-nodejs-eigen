@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { LoanEntity } from '../loan/loan.entity';
+import { BorrowEntity } from '../borrow/borrow.entity';
 
 @Entity({ name: 'books' })
 export class BookEntity {
@@ -12,9 +12,9 @@ export class BookEntity {
   @Column()
   author: string;
 
-  @Column('int')
+  @Column('int', { default: 1 })
   stock: number;
 
-  @OneToMany(() => LoanEntity, (loan) => loan.book)
-  loans: LoanEntity[];
+  @OneToMany(() => BorrowEntity, (borrow) => borrow.book)
+  borrows: BorrowEntity[];
 }

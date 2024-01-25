@@ -1,4 +1,4 @@
-import { longestWord } from '../02';
+import { longestWord } from '../../algoritma-test/02';
 
 describe('02', () => {
   it('should return longest word', () => {

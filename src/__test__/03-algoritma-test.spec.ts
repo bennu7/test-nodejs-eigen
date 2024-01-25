@@ -1,4 +1,4 @@
-import { queryInput } from '../03';
+import { queryInput } from '../../algoritma-test/03';
 
 describe('03', () => {
   it('should return query input', () => {

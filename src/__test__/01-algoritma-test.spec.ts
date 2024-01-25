@@ -1,4 +1,4 @@
-import { reverseString } from '../01';
+import { reverseString } from '../../algoritma-test/01';
 
 describe('01', () => {
   it('should return reversed string', () => {

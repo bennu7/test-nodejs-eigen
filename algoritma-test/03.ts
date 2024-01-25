@@ -21,5 +21,3 @@ export const queryInput = (input: string[], query: string[]): number[] => {
   }
   return result;
 };
-
-console.log(queryInput(INPUT, QUERY));

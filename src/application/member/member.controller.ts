@@ -1,32 +1,85 @@
-import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Query,
+  Body,
+  Res,
+} from '@nestjs/common';
+import { Response } from 'express';
+
 import { MemberService } from './member.service';
+import { QueryMemberDto, QueryMemberIdDto } from './dtos/query-member.dto';
+import { CreateMemberDto } from './dtos/create-member.dto';
+import { UpdateMemberDto } from './dtos/update-member.dto';
 
 @Controller('/api/member')
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
-  @Get()
-  findAll() {
-    return this.memberService.findAll();
-  }
-
-  @Get(':code')
-  findOneData(@Param('code') code: string) {
-    return this.memberService.findOneData(code);
-  }
-
   @Post()
-  create() {
-    return 'This action adds a new member';
+  async create(@Body() data: CreateMemberDto, @Res() res: Response) {
+    const member = await this.memberService.createData(data.name);
+    return res.status(201).json({
+      statusCode: 201,
+      message: 'Member has been created',
+      data: member,
+    });
   }
 
-  @Put(':code')
-  update() {
-    return 'This action updates a member';
+  @Get()
+  async findAll(@Res() res: Response) {
+    const data = await this.memberService.findAllData();
+
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'SUCCESS GET ALL DATA MEMBER',
+      data,
+    });
   }
 
-  @Delete(':code')
-  remove() {
-    return 'This action removes a member';
+  @Get(':memberId')
+  async findOneData(
+    @Param() { memberId }: QueryMemberIdDto,
+    @Res() res: Response,
+  ) {
+    const data = await this.memberService.findOneData(memberId);
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'SUCCESS GET DATA A MEMBER',
+      data,
+    });
+  }
+
+  @Put(':memberId')
+  async update(
+    @Param() { memberId }: QueryMemberIdDto,
+    @Body() data: UpdateMemberDto,
+    @Res() res: Response,
+  ) {
+    const updated = await this.memberService.updateData(
+      memberId,
+      data.name,
+      data.date_penalty,
+    );
+
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'SUCCESS UPDATE DATA MEMBER',
+      data: updated,
+    });
+  }
+
+  @Delete(':memberId')
+  async remove(@Param() { memberId }: QueryMemberIdDto, @Res() res: Response) {
+    await this.memberService.deleteData(memberId);
+
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'SUCCESS DELETE DATA MEMBER',
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { OneToMany, Entity, Column } from 'typeorm';
-import { LoanEntity } from '../loan/loan.entity';
+import { BorrowEntity } from '../borrow/borrow.entity';
 
 @Entity({ name: 'members' })
 export class MemberEntity {
@@ -9,6 +9,9 @@ export class MemberEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => LoanEntity, (load) => load.member)
-  loans: LoanEntity[];
+  @Column('date', { default: new Date(), nullable: true })
+  date_penalty: Date | null;
+
+  @OneToMany(() => BorrowEntity, (load) => load.member)
+  borrows: BorrowEntity[];
 }
